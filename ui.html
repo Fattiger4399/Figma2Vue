@@ -1,0 +1,17 @@
+<h2>Rectangle Creator</h2>
+<button id="getall">Get All Nodes with All Properties</button>
+<script>
+  // 按下按钮后发送消息到插件主进程
+  document.getElementById('getall').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'get-all-nodes-with-properties' } }, '*');
+  };
+
+  // 监听来自插件主进程的消息
+  window.onmessage = (event) => {
+    const message = event.data.pluginMessage;
+    if (message.type === 'all-nodes-with-properties') {
+      // 打印所有节点及其所有属性到 console
+      console.log('All nodes with properties:', message.nodes);
+    }
+  };
+</script>
